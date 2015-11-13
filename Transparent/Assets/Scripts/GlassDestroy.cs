@@ -32,27 +32,47 @@ public class GlassDestroy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player1") || other.CompareTag("Player2") || other.CompareTag("Player3"))
+        if (other.CompareTag("Player1"))
         {
             //player = other.gameObject;
-            Attack();
+            Attack1();
+            Destroy(this.gameObject);
+        }
+        if (other.CompareTag("Player2"))
+        {
+            //player = other.gameObject;
+            Attack2();
+            Destroy(this.gameObject);
+        }
+        if (other.CompareTag("Player3"))
+        {
+            //player = other.gameObject;
+            Attack3();
             Destroy(this.gameObject);
         }
     }
 
-    void Attack()
+    void Attack1()
     {
 
         if (playerHealth1.currentHealth > 0)
         {
             playerHealth1.TakeDamage(attackDamage);
         }
+       
+    }
+    void Attack2()
+    {
         if (playerHealth2.currentHealth > 0)
-        {         
+        {
             playerHealth2.TakeDamage(attackDamage);
         }
+    }
+    void Attack3()
+    {
+
         if (playerHealth3.currentHealth > 0)
-        {                        
+        {
             playerHealth3.TakeDamage(attackDamage);
         }
     }

@@ -25,7 +25,8 @@ public class ShadowFax : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.CompareTag("Player")){
+		if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2") || other.gameObject.CompareTag("Player3"))
+        {
 			StartCoroutine(FadeTo(0.0f, 1.0f));
 		}
 	}

@@ -15,7 +15,7 @@ public class WinningCondition : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Collider>().CompareTag("Player"))
+        if (other.GetComponent<Collider>().CompareTag("Player1")|| other.GetComponent<Collider>().CompareTag("Player2")|| other.GetComponent<Collider>().CompareTag("Player3"))
         {
             Application.LoadLevel("HumansWin");
 

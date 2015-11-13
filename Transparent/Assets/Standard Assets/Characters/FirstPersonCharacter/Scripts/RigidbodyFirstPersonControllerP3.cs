@@ -6,7 +6,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (Rigidbody))]
     [RequireComponent(typeof (CapsuleCollider))]
-    public class RigidbodyFirstPersonController : MonoBehaviour
+    public class RigidbodyFirstPersonControllerP3 : MonoBehaviour
     {
         [Serializable]
         public class MovementSettings
@@ -77,7 +77,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public Camera cam;
         public MovementSettings movementSettings = new MovementSettings();
-        public MouseLook mouseLook = new MouseLook();
+        public MouseLook mouseLookP3 = new mouseLookP3();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
 
 
@@ -120,7 +120,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
-            mouseLook.Init (transform, cam.transform);
+            mouseLookP3.Init (transform, cam.transform);
         }
 
 
@@ -128,7 +128,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
 
-            if (CrossPlatformInputManager.GetButtonDown("P4Jump") && !m_Jump)
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
             }
@@ -228,7 +228,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-            mouseLook.LookRotation (transform, cam.transform);
+            mouseLookP3.LookRotation (transform, cam.transform);
 
             if (m_IsGrounded || advancedSettings.airControl)
             {

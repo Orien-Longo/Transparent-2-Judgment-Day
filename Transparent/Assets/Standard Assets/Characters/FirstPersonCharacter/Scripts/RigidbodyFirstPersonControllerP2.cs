@@ -6,7 +6,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (Rigidbody))]
     [RequireComponent(typeof (CapsuleCollider))]
-    public class RigidbodyFirstPersonController : MonoBehaviour
+    public class RigidbodyFirstPersonControllerP2 : MonoBehaviour
     {
         [Serializable]
         public class MovementSettings
@@ -128,7 +128,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
 
-            if (CrossPlatformInputManager.GetButtonDown("P4Jump") && !m_Jump)
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
             }
@@ -212,6 +212,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             
             Vector2 input = new Vector2
                 {
+                    
                     x = CrossPlatformInputManager.GetAxis("Horizontal"),
                     y = CrossPlatformInputManager.GetAxis("Vertical")
                 };

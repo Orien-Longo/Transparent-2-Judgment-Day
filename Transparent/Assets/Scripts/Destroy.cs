@@ -45,7 +45,7 @@ public class Destroy : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.CompareTag("Player") && mPressed)
+        if ((other.gameObject.CompareTag("Player1")|| other.gameObject.CompareTag("Player2")|| other.gameObject.CompareTag("Player3")) && mPressed)
         {
 
             //gameObject.SetActive(true);
@@ -59,7 +59,7 @@ public class Destroy : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject.CompareTag("Player") && mPressed)
+        if ((other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2") || other.gameObject.CompareTag("Player3")) && mPressed)
         {
 
 
