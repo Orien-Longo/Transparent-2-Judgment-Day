@@ -18,6 +18,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
         [SerializeField] private MouseLook m_MouseLook;
+     //   [SerializeField] private MouseLook2 m_MouseLook2;
+//        [SerializeField] private MouseLook3 m_MouseLook3;
+   //     [SerializeField] private MouseLook4 m_MouseLook4;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob;
@@ -29,6 +32,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
         private Camera m_Camera;
+        public Camera p1c,p2c,p3c,p4c;
         private bool m_Jump;
         private float m_YRotation;
         private Vector2 m_Input;
@@ -48,15 +52,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = Camera.main;
+            //m_Camera = Camera.main; 
+            if (CompareTag("Player1")) { m_Camera = p1c; }
+            if (CompareTag("Player2")) { m_Camera = p2c; }
+            if (CompareTag("Player3")) { m_Camera = p3c; }
+            if (CompareTag("Lich")) { m_Camera = p4c; }
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
-            m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
+            m_AudioSource = GetComponent<AudioSource>();            
+            m_MouseLook.Init(transform , m_Camera.transform);
             jPresses = 0;
         }
 
@@ -70,9 +78,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 
                 if (CompareTag("Player1") && jPresses < 1)
-                {
-                    
+                {                    
+                    m_Camera = p1c;
                     m_Jump = Input.GetKeyDown(KeyCode.Joystick1Button0);
+                    jPresses++;
+                }
+                if (CompareTag("Player2") && jPresses < 1)
+                {
+
+                    m_Jump = Input.GetKeyDown(KeyCode.Joystick2Button0);
+                    jPresses++;
+                }
+                if (CompareTag("Player3") && jPresses < 1)
+                {
+
+                    m_Jump = Input.GetKeyDown(KeyCode.Joystick3Button0);
+                    jPresses++;
+                }
+                if (CompareTag("Lich") && jPresses < 1)
+                {
+
+                    m_Jump = Input.GetKeyDown(KeyCode.Joystick4Button0) || Input.GetKeyDown(KeyCode.Space);
                     jPresses++;
                 }
 
@@ -116,8 +142,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
-            Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                               m_CharacterController.height/2f);
+            Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo, m_CharacterController.height/2f);
             desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
             m_MoveDir.x = desiredMove.x*speed;
@@ -217,13 +242,30 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void GetInput(out float speed)
         {
             
-            float horizontal = CrossPlatformInputManager.GetAxis("P2Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("P2Vertical");
+            float horizontal = 0f;
+            float vertical = 0f;
 
             if (CompareTag("Player1"))
             {
                 horizontal = CrossPlatformInputManager.GetAxis("P1Horizontal");
                 vertical = CrossPlatformInputManager.GetAxis("P1Vertical");
+            }
+            if (CompareTag("Player2"))
+            {
+                horizontal = CrossPlatformInputManager.GetAxis("P2Horizontal");
+                vertical = CrossPlatformInputManager.GetAxis("P2Vertical");
+            }
+            if (CompareTag("Player3"))
+            {
+                horizontal = CrossPlatformInputManager.GetAxis("P3Horizontal");
+                vertical = CrossPlatformInputManager.GetAxis("P3Vertical");
+            }
+            if (CompareTag("Lich"))
+            {
+                horizontal = CrossPlatformInputManager.GetAxis("P4Horizontal");
+                vertical = CrossPlatformInputManager.GetAxis("P4Vertical");
+                horizontal = CrossPlatformInputManager.GetAxis("HorizontalKey");
+                vertical = CrossPlatformInputManager.GetAxis("VerticalKey");
             }
 
             bool waswalking = m_IsWalking;
@@ -255,6 +297,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
+
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 

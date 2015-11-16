@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Destroy.cs" />
      <Compile Include="Assets\Scripts\GlassDamage.cs" />
      <Compile Include="Assets\Scripts\GlassDestroy.cs" />
+     <Compile Include="Assets\Scripts\LosingConditions.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Restart.cs" />
      <Compile Include="Assets\Scripts\ShadowFax.cs" />

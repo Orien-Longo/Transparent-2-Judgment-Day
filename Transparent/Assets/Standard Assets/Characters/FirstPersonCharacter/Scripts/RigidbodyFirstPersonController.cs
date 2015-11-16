@@ -212,8 +212,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             
             Vector2 input = new Vector2
                 {
-                    x = CrossPlatformInputManager.GetAxis("P1Horizontal"),
-                    y = CrossPlatformInputManager.GetAxis("P1Vertical")
+                    x = CrossPlatformInputManager.GetAxis("HorizontalKey"),
+                    y = CrossPlatformInputManager.GetAxis("VerticalKey")
                 };
 			movementSettings.UpdateDesiredTargetSpeed(input);
             return input;
@@ -227,8 +227,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
-
-            mouseLook.LookRotation (transform, cam.transform);
+           
+                mouseLook.LookRotation(transform, cam.transform);
+            
 
             if (m_IsGrounded || advancedSettings.airControl)
             {

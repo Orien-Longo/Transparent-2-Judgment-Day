@@ -7,6 +7,7 @@ public class Destroy : MonoBehaviour
     bool mPressed;
     Collider beam;
     public GameObject beamColor, beam1;
+    int mpress, deathCount;
 
     void Start()
     {
@@ -14,30 +15,39 @@ public class Destroy : MonoBehaviour
         beam = beam1.GetComponent<Collider>();
         beam.enabled = false;        
         mPressed = false;
+        mpress = 0;
+        deathCount = 0;
     }
 
 
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
+        
+        if (Input.GetMouseButtonDown(0) && mpress < 1 && !mPressed)
         {
             mPressed = true;
             StartCoroutine(FadeTo(1.0f, .1f));
             beam.enabled = true;
+            mpress++;
             
         }
         else if (Input.GetMouseButton(0))
         {
             beam.enabled = false;
             mPressed = false;
-            StartCoroutine(FadeTo(0.0f, .3f));
+            StartCoroutine(FadeTo(0.01f, 1f));
         }
         else if (Input.GetMouseButtonUp(0))
         {
             beam.enabled = false;
             mPressed = false;
-            StartCoroutine(FadeTo(0.0f, .3f));
+            StartCoroutine(FadeTo(0.01f, 1f));
+            mpress = 0;
+
+        }
+        if (deathCount > 2)
+        {
+            Application.LoadLevel("LichWins");
         }
 
     }
@@ -51,6 +61,7 @@ public class Destroy : MonoBehaviour
             //gameObject.SetActive(true);
 
             Destroy(other.gameObject);
+            deathCount++;
 
         }
 
@@ -64,6 +75,7 @@ public class Destroy : MonoBehaviour
 
 
             Destroy(other.gameObject);
+            deathCount++;
         }
 
     }
