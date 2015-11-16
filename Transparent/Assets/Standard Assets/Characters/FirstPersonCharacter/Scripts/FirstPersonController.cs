@@ -41,6 +41,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        private Input P1Jump;
+        int jPresses;
 
         // Use this for initialization
         private void Start()
@@ -55,6 +57,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+            jPresses = 0;
         }
 
 
@@ -63,9 +66,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
+            if (!m_Jump )
             {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                
+                if (CompareTag("Player1") && jPresses < 1)
+                {
+                    
+                    m_Jump = Input.GetKeyDown(KeyCode.Joystick1Button0);
+                    jPresses++;
+                }
+
+                if (!m_Jumping) { jPresses = 0; }
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
@@ -74,10 +85,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 PlayLandingSound();
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
+                
+                
+                
             }
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
+                
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
@@ -201,16 +216,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
-            // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("P1Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("P1Vertical");
+            
+            float horizontal = CrossPlatformInputManager.GetAxis("P2Horizontal");
+            float vertical = CrossPlatformInputManager.GetAxis("P2Vertical");
+
+            if (CompareTag("Player1"))
+            {
+                horizontal = CrossPlatformInputManager.GetAxis("P1Horizontal");
+                vertical = CrossPlatformInputManager.GetAxis("P1Vertical");
+            }
 
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
-            m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            m_IsWalking = !Input.GetKey(KeyCode.Joystick1Button1);
 #endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
