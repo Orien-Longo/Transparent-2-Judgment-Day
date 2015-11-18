@@ -2,10 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-
 public class PlayerHealth : MonoBehaviour {
-
-
 
     public int health = 100;
     public int currentHealth;
