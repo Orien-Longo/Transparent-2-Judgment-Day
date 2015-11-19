@@ -4,12 +4,13 @@ using System.Collections;
 public class GlassDamage : MonoBehaviour
 {
 
-    public int attackDamage = 5;
+    public int attackDamage = 1;
     public GameObject player;
     PlayerHealth playerHealth;
 
     void Awake()
     {
+
         playerHealth = player.GetComponent<PlayerHealth>();
        
 
@@ -47,6 +48,7 @@ public class GlassDamage : MonoBehaviour
         {
             playerHealth.TakeDamage(attackDamage);
         }
+        //else { }
        
     }
    
