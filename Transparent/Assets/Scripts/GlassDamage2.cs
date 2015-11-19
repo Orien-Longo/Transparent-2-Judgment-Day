@@ -4,11 +4,11 @@ using System.Collections;
 public class GlassDamage2 : MonoBehaviour {
     public int attackDamage = 5;
     public GameObject player;
-    PlayerHealth playerHealth;
+    PlayerHealth2 playerHealth;
 
     void Awake()
     {
-        playerHealth = player.GetComponent<PlayerHealth>();
+        playerHealth = player.GetComponent<PlayerHealth2>();
 
 
     }
