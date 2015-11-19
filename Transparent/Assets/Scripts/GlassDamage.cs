@@ -4,7 +4,7 @@ using System.Collections;
 public class GlassDamage : MonoBehaviour
 {
 
-    public int attackDamage = 1;
+    public float attackDamage;
     public GameObject player;
     PlayerHealth playerHealth;
 
@@ -12,7 +12,8 @@ public class GlassDamage : MonoBehaviour
     {
 
         playerHealth = player.GetComponent<PlayerHealth>();
-       
+        attackDamage = .5f;
+
 
     }
 
@@ -36,7 +37,7 @@ public class GlassDamage : MonoBehaviour
         {
             //player = other.gameObject;
             Attack();
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
         }
        
     }

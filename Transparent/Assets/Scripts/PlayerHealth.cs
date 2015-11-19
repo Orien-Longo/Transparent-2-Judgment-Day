@@ -5,25 +5,28 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
 
-    public int health;
-    public int currentHealth;
+    public float health;
+    public float currentHealth;
     public Slider healthSlider;
 
     public bool isDead = false;
     public bool damaged;
 
     public int playerAmt = 0;
-    
 
-    
+    private GameObject healthBar;
 
 
     void Awake()
     {
         //players = new ArrayList[playerAmt];
-        health = 100;
+        health = 10;
         currentHealth = health;
-        
+        if (gameObject.CompareTag("Player1")) { healthBar = GameObject.Find("HealthBar P1"); }
+        if (gameObject.CompareTag("Player2")) { healthBar = GameObject.Find("HealthBar P2"); }
+        if (gameObject.CompareTag("Player3")) { healthBar = GameObject.Find("HealthBar P3"); }
+
+
     }
 
     void Start()
@@ -36,29 +39,16 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(health);
-        //var players = GameObject.FindGameObjectsWithTag("Player");
-        playerAmt = GameObject.FindGameObjectsWithTag("Soul").Length;
-        //playerAmt = GameObject.FindObjectsOfType<PlayerHealth>().Length;
-        //foreach("Player" in tag)
-        //playerAmt = players.GetLength(GameObject.FindGameObjectsWithTag("Player"));
 
-        Debug.Log(playerAmt);
+
     }
 
 
-    //void OnTriggerEnter(Collider other){
-    //	if (other.CompareTag("Glass"))
-    //	{
-    //		health -= 1;
 
-    //	}
-    //}
-
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
-        
-   
+
+
         currentHealth -= amount;
         healthSlider.value = currentHealth;
 
@@ -72,40 +62,32 @@ public class PlayerHealth : MonoBehaviour
                 if (isDead)
                 {
 
+                    playerAmt = GameObject.FindGameObjectsWithTag("Soul").Length;
 
-                   
+                    Debug.Log(playerAmt);
 
-                    Destroy(this.gameObject);
+                    if (playerAmt != 1)
+                    {
+                        Destroy(healthBar);
+                        Destroy(this.gameObject);
+                    }
+                    else
+                    {
+                        Death();
+                    }
 
-                    //var players = GameObject.FindGameObjectsWithTag("Player");
-
-                    //playerAmt = players.GetLength(players.Length);
-
-                    //Debug.Log(playerAmt);
-
-                    //for (int i = 0; i < 3;) {
-                    //    if (players.GetLength(playerAmt)>1)
-                    //    {
-                    //        playerAmt++;
-                    //        Debug.Log(playerAmt);
-                    //    }
-                    //}
-                    //Death();
                 }
-                
             }
-            
-
         }
     }
 
     void Death()
     {
-        
+
 
         if (isDead)
         {
-            
+
             Application.LoadLevel("LichWins");
 
         }
