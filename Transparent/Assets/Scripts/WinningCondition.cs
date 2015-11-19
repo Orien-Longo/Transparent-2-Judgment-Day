@@ -3,14 +3,16 @@ using System.Collections;
 
 public class WinningCondition : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public int playerAmt = 0;
+
+    void Start () {
         Cursor.visible = false;
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
+        PlayerCheck();
 	}
 
     void OnTriggerEnter(Collider other)
@@ -23,5 +25,14 @@ public class WinningCondition : MonoBehaviour {
 
        
     
+    }
+    void PlayerCheck()
+    {
+        Debug.Log(playerAmt);
+        playerAmt = GameObject.FindGameObjectsWithTag("Soul").Length;
+        if (playerAmt == 0)
+        {
+            Application.LoadLevel("LichWins");
+        }
     }
 }

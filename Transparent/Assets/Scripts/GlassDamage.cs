@@ -12,7 +12,7 @@ public class GlassDamage : MonoBehaviour
     {
 
         playerHealth = player.GetComponent<PlayerHealth>();
-        attackDamage = .5f;
+        attackDamage = .2f;
 
 
     }
@@ -37,7 +37,7 @@ public class GlassDamage : MonoBehaviour
         {
             //player = other.gameObject;
             Attack();
-            //Destroy(other.gameObject);
+            Destroy(other.gameObject);
         }
        
     }

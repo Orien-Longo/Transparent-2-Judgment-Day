@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         //players = new ArrayList[playerAmt];
-        health = 10;
+        health = 100;
         currentHealth = health;
         if (gameObject.CompareTag("Player1")) { healthBar = GameObject.Find("HealthBar P1"); }
         if (gameObject.CompareTag("Player2")) { healthBar = GameObject.Find("HealthBar P2"); }
@@ -64,7 +64,7 @@ public class PlayerHealth : MonoBehaviour
 
                     playerAmt = GameObject.FindGameObjectsWithTag("Soul").Length;
 
-                    Debug.Log(playerAmt);
+                    //Debug.Log(playerAmt);
 
                     if (playerAmt != 1)
                     {

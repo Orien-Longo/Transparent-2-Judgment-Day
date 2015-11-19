@@ -9,6 +9,10 @@ public class Destroy : MonoBehaviour
     public GameObject beamColor, beam1;
     int mpress, deathCount;
 
+    //public int playerAmt = 0;
+
+    private GameObject healthBar;
+
     void Start()
     {
         //beamC = beamColor.GetComponent<Renderer>();
@@ -16,7 +20,9 @@ public class Destroy : MonoBehaviour
         beam.enabled = false;        
         mPressed = false;
         mpress = 0;
-        deathCount = 0;
+        
+        //playerAmt = GameObject.FindGameObjectsWithTag("Soul").Length;
+        //deathCount = 0;
     }
 
 
@@ -44,11 +50,12 @@ public class Destroy : MonoBehaviour
             StartCoroutine(FadeTo(0.01f, 1f));
             mpress = 0;
 
+            
+
         }
-        if (deathCount > 2)
-        {
-            Application.LoadLevel("LichWins");
-        }
+
+        
+
 
     }
 
@@ -59,11 +66,22 @@ public class Destroy : MonoBehaviour
         {
 
             //gameObject.SetActive(true);
+            if (other.gameObject.CompareTag("Player1")) { healthBar = GameObject.Find("HealthBar P1"); }
+            if (other.gameObject.CompareTag("Player2")) { healthBar = GameObject.Find("HealthBar P2"); }
+            if (other.gameObject.CompareTag("Player3")) { healthBar = GameObject.Find("HealthBar P3"); }
 
             Destroy(other.gameObject);
-            deathCount++;
+            Destroy(healthBar);
+            
+            //deathCount++;
+
+            //if (deathCount > 2)
+            
 
         }
+        //playerAmt = GameObject.FindGameObjectsWithTag("Soul").Length;
+
+        
 
     }
 
@@ -74,9 +92,23 @@ public class Destroy : MonoBehaviour
         {
 
 
+            if (other.CompareTag("Player1")) { healthBar = GameObject.Find("HealthBar P1"); }
+            if (other.CompareTag("Player2")) { healthBar = GameObject.Find("HealthBar P2"); }
+            if (other.CompareTag("Player3")) { healthBar = GameObject.Find("HealthBar P3"); }
+
             Destroy(other.gameObject);
-            deathCount++;
+            Destroy(healthBar);
+           
+
         }
+        //playerAmt = GameObject.FindGameObjectsWithTag("Soul").Length;
+        ////deathCount++;
+
+        ////if (deathCount > 2)
+        //if (playerAmt <= 0)
+        //{
+        //    Application.LoadLevel("LichWins");
+        //}
 
     }
     IEnumerator FadeTo(float aValue, float aTime)
@@ -100,5 +132,7 @@ public class Destroy : MonoBehaviour
             //}
         }
     }
+
+    
 
 }

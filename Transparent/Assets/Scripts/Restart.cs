@@ -17,7 +17,7 @@ public class Restart : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Joystick1Button0)|| Input.GetKeyDown(KeyCode.Joystick2Button0)|| Input.GetKeyDown(KeyCode.Joystick3Button0))
         {
-            Application.LoadLevel("LichHunt proto3");
+            Application.LoadLevel("LichHunt proto2");
             //Debug.Log("Pressed left click.");
             Destroy(canvas1);
             Destroy(canvas1);
